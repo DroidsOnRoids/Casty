@@ -13,7 +13,7 @@ allprojects {
 Insert the following dependency to `build.gradle` file of your project:
 ```gradle
 dependencies {
-    compile 'com.github.DroidsOnRoids:Casty:1.0.0'
+    compile 'com.github.DroidsOnRoids:Casty:1.0.1'
 }
 ```
 ## Usage
