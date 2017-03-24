@@ -1,0 +1,32 @@
+apply plugin: 'com.android.library'
+
+android {
+    compileSdkVersion 25
+    buildToolsVersion "25.0.2"
+
+    defaultConfig {
+        minSdkVersion 14
+        targetSdkVersion 25
+        versionCode 1
+        versionName "1.0.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+}
+
+ext {
+    supportVersion = '25.3.0'
+    castVersion = '10.2.1'
+    queryVersion = '0.25.9'
+}
+
+dependencies {
+    compile "com.android.support:appcompat-v7:${supportVersion}"
+    compile "com.android.support:mediarouter-v7:${supportVersion}"
+    compile "com.google.android.gms:play-services-cast-framework:${castVersion}"
+}
