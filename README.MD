@@ -4,16 +4,16 @@ Casty is a small library that provides a simple media player for Chromecast. It'
 Add the JitPack maven repository to the list of repositories in the top-level `build.gradle`:
 ```gradle
 allprojects {
-	repositories {
-		...
-		maven { url 'https://jitpack.io' }
+    repositories {
+        ...
+        maven { url 'https://jitpack.io' }
 	}
 }
 ```
 Insert the following dependency to `build.gradle` file of your project:
 ```gradle
 dependencies {
-	compile 'com.github.DroidsOnRoids:Casty:1.0.0'
+    compile 'com.github.DroidsOnRoids:Casty:1.0.0'
 }
 ```
 ## Usage
