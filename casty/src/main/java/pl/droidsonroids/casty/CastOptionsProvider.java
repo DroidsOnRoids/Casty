@@ -39,7 +39,6 @@ public class CastOptionsProvider implements OptionsProvider {
 
     private List<String> createButtonActions() {
         return Arrays.asList(MediaIntentReceiver.ACTION_REWIND,
-                MediaIntentReceiver.ACTION_REWIND,
                 MediaIntentReceiver.ACTION_TOGGLE_PLAYBACK,
                 MediaIntentReceiver.ACTION_FORWARD,
                 MediaIntentReceiver.ACTION_STOP_CASTING);
