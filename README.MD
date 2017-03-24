@@ -1,7 +1,21 @@
 # Casty
 Casty is a small library that provides a simple media player for Chromecast. It's fully consistent with [Google Cast v3][Cast_v3].
 ## Installation
-TODO
+Add the JitPack maven repository to the list of repositories in the top-level `build.gradle`:
+```gradle
+allprojects {
+	repositories {
+		...
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+Insert the following dependency to `build.gradle` file of your project:
+```gradle
+dependencies {
+	compile 'com.github.DroidsOnRoids:Casty:1.0.0'
+}
+```
 ## Usage
 Casty requires Google Play Services and I assume that the target device has it installed (if not this example will crash). In a bigger project I suggest you check it using [GoogleApiAvailability][Google_availability].
 
@@ -53,7 +67,7 @@ public class MainActivity extends CastyActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        if (casty.isConnected) {
+        if (casty.isConnected()) {
             casty.getPlayer().loadMediaAndPlay(...)
         }
     }
@@ -111,9 +125,13 @@ casty.setOnCastSessionUpdatedListener(new Casty.OnCastSessionUpdatedListener() {
     }
 });
 ```
+### License
+[MIT][License]
+
 [//]: #
    [Cast_v3]: <https://developers.google.com/cast/docs/developers>
    [Mini_Controller_Info]: <https://developers.google.com/cast/docs/design_checklist/sender#sender-mini-controller>
    [Mini_Controller_Implementation]: <https://developers.google.com/cast/docs/android_sender_integrate#add_mini_controller>
    [Cast_load_media]: <https://developers.google.com/cast/docs/android_sender_integrate#load_media>
    [Google_availability]: <https://developers.google.com/android/reference/com/google/android/gms/common/GoogleApiAvailability>
+   [License]: <https://github.com/DroidsOnRoids/Casty/blob/master/LICENSE>
