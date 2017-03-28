@@ -1,5 +1,5 @@
 # Casty
-Casty is a small library that provides a simple media player for Chromecast. It's fully consistent with [Google Cast v3][Cast_v3].
+Casty is a small Android library that provides a simple media player for Chromecast. It's fully consistent with [Google Cast v3][Cast_v3].
 ## Installation
 Add the JitPack maven repository to the list of repositories in the top-level `build.gradle`:
 ```gradle
@@ -13,7 +13,7 @@ allprojects {
 Insert the following dependency to `build.gradle` file of your project:
 ```gradle
 dependencies {
-    compile 'com.github.DroidsOnRoids:Casty:1.0.3'
+    compile 'com.github.DroidsOnRoids:casty:1.0.3'
 }
 ```
 ## Usage
