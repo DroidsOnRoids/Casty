@@ -4,6 +4,9 @@ import android.view.Menu;
 import com.google.android.gms.cast.framework.CastButtonFactory;
 import com.google.android.gms.cast.framework.media.widget.ExpandedControllerActivity;
 
+/**
+ * Fullscreen media controls
+ */
 public class ExpandedControlsActivity extends ExpandedControllerActivity {
 
     @Override

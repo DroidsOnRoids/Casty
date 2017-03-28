@@ -19,6 +19,9 @@ import com.google.android.gms.cast.framework.CastOptions;
 import com.google.android.gms.cast.framework.CastSession;
 import com.google.android.gms.cast.framework.SessionManagerListener;
 
+/**
+ * Core class of Casty. It manages buttons/widgets and gives access to the media player.
+ */
 public class Casty implements CastyPlayer.OnMediaLoadedListener {
     static String receiverId = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
     static CastOptions customCastOptions;
@@ -31,14 +34,27 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
     private CastyPlayer castyPlayer;
     private Activity activity;
 
+    /**
+     * Sets the custom receiver ID. Should be used in the {@link Application} class.
+     * @param receiverId the custom receiver ID, e.g. Styled Media Receiver - with custom logo and background
+     */
     public static void configure(@NonNull String receiverId) {
         Casty.receiverId = receiverId;
     }
 
+    /**
+     * Sets the custom CastOptions, should be used in the {@link Application} class.
+     * @param castOptions the custom CastOptions object, must include a receiver ID
+     */
     public static void configure(@NonNull CastOptions castOptions) {
         Casty.customCastOptions = castOptions;
     }
 
+    /**
+     * Creates the Casty object.
+     * @param activity {@link Activity} in which Casty object is created
+     * @return the Casty object
+     */
     public static Casty create(@NonNull Activity activity) {
         return new Casty(activity);
     }
@@ -51,31 +67,58 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
         CastContext.getSharedInstance(activity);
     }
 
+    /**
+     * Gives access to {@link CastyPlayer}, which allows to control the media files.
+     * @return the instance of {@link CastyPlayer}
+     */
     public CastyPlayer getPlayer() {
         return castyPlayer;
     }
 
+    /**
+     * Checks if a Google Cast device is connected.
+     * @return true if a Google Cast is connected, false otherwise
+     */
     public boolean isConnected() {
         return castSession != null;
     }
 
+    /**
+     * Adds the discovery menu item on a toolbar.
+     * Should be used in {@link Activity#onCreateOptionsMenu(Menu)}.
+     * @param menu Menu in which MenuItem should be added
+     */
     @UiThread
     public void addMediaRouteMenuItem(@NonNull Menu menu) {
         activity.getMenuInflater().inflate(R.menu.casty_discovery, menu);
         setUpMediaRouteMenuItem(menu);
     }
 
+    /**
+     * Makes {@link MediaRouteButton} react to discovery events.
+     * Must be run on UiThread.
+     * @param mediaRouteButton Button to be set up
+     */
     @UiThread
     public void setUpMediaRouteButton(@NonNull MediaRouteButton mediaRouteButton) {
         CastButtonFactory.setUpMediaRouteButton(activity, mediaRouteButton);
     }
 
+    /**
+     * Adds the Mini Controller at the bottom of Activity's layout.
+     * Must be run on UiThread.
+     * @return the Casty instance
+     */
     @UiThread
     public Casty withMiniController() {
         addMiniController();
         return this;
     }
 
+    /**
+     * Adds the Mini Controller at the bottom of Activity's layout
+     * Must be run on UiThread.
+     */
     @UiThread
     public void addMiniController() {
         ViewGroup contentView = (ViewGroup) activity.findViewById(android.R.id.content);
@@ -98,10 +141,18 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
         activity.setContentView(linearLayout);
     }
 
+    /**
+     * Sets {@link OnConnectChangeListener}
+     * @param onConnectChangeListener Connect change callback
+     */
     public void setOnConnectChangeListener(@Nullable OnConnectChangeListener onConnectChangeListener) {
         this.onConnectChangeListener = onConnectChangeListener;
     }
 
+    /**
+     * Sets {@link OnCastSessionUpdatedListener}
+     * @param onCastSessionUpdatedListener Cast session updated callback
+     */
     public void setOnCastSessionUpdatedListener(@Nullable OnCastSessionUpdatedListener onCastSessionUpdatedListener) {
         this.onCastSessionUpdatedListener = onCastSessionUpdatedListener;
     }

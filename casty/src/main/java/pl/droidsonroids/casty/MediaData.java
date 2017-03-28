@@ -11,7 +11,9 @@ import java.lang.annotation.RetentionPolicy;
 import java.util.ArrayList;
 import java.util.List;
 
-@SuppressWarnings("unused")
+/**
+ * Media information class
+ */
 public class MediaData {
     @Retention(RetentionPolicy.SOURCE)
     @IntDef({STREAM_TYPE_NONE, STREAM_TYPE_BUFFERED, STREAM_TYPE_LIVE})
@@ -105,50 +107,100 @@ public class MediaData {
     public static class Builder {
         private final MediaData mediaData;
 
+        /**
+         * Create the MediaData builder
+         * @param url String url of media data
+         */
         public Builder(String url) {
             mediaData = new MediaData(url);
         }
 
+        /**
+         * Sets the stream type. Required.
+         * @param streamType One of {@link #STREAM_TYPE_NONE}, {@link #STREAM_TYPE_BUFFERED}, {@link #STREAM_TYPE_LIVE}
+         * @return this instance for chain calls
+         */
         public Builder setStreamType(@StreamType int streamType) {
             mediaData.setStreamType(streamType);
             return this;
         }
 
+        /**
+         * Sets the content type. Required.
+         * @param contentType Valid content type, supported by Google Cast
+         * @return this instance for chain calls
+         */
         public Builder setContentType(String contentType) {
             mediaData.setContentType(contentType);
             return this;
         }
 
+        /**
+         * Sets stream duration.
+         * @param streamDuration Valid stream duration
+         * @return this instance for chain calls
+         */
         public Builder setStreamDuration(long streamDuration) {
             mediaData.setStreamDuration(streamDuration);
             return this;
         }
 
+        /**
+         * Sets the title.
+         * @param title any String
+         * @return this instance for chain calls
+         */
         public Builder setTitle(String title) {
             mediaData.setTitle(title);
             return this;
         }
 
+        /**
+         * Sets the subtitle.
+         * @param subtitle any String
+         * @return this instance for chain calls
+         */
         public Builder setSubtitle(String subtitle) {
             mediaData.setSubtitle(subtitle);
             return this;
         }
 
+        /**
+         * Sets the media type.
+         * @param mediaType One of {@link #MEDIA_TYPE_GENERIC}, {@link #MEDIA_TYPE_MOVIE}, {@link #MEDIA_TYPE_TV_SHOW}, {@link #MEDIA_TYPE_MUSIC_TRACK},
+         * {@link #MEDIA_TYPE_PHOTO}, {@link #MEDIA_TYPE_USER}
+         * @return this instance for chain calls
+         */
         public Builder setMediaType(@MediaType int mediaType) {
             mediaData.setMediaType(mediaType);
             return this;
         }
 
+        /**
+         * Adds the photo url
+         * @param photoUrl valid url to image
+         * @return this instance for chain calls
+         */
         public Builder addPhotoUrl(String photoUrl) {
             mediaData.imageUrls.add(photoUrl);
             return this;
         }
 
+        /**
+         * Sets up playing on start
+         * @param autoPlay True if the media file should start automatically
+         * @return this instance for chain calls
+         */
         public Builder setAutoPlay(boolean autoPlay) {
             mediaData.autoPlay = autoPlay;
             return this;
         }
 
+        /**
+         * Sets the start position
+         * @param position Start position of video in milliseconds
+         * @return this instance for chain calls
+         */
         public Builder setPosition(long position) {
             mediaData.position = position;
             return this;

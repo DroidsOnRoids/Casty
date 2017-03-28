@@ -17,18 +17,31 @@ public class CastyPlayer {
         this.remoteMediaClient = remoteMediaClient;
     }
 
+    /**
+     * Plays the current media file if it is paused
+     */
     public void play() {
-        if (remoteMediaClient != null && remoteMediaClient.isPaused()) remoteMediaClient.play();
+        if (isPaused()) remoteMediaClient.play();
     }
 
+    /**
+     * Pauses the current media file if it is playing
+     */
     public void pause() {
-        if (remoteMediaClient != null && remoteMediaClient.isPlaying()) remoteMediaClient.pause();
+        if (isPlaying()) remoteMediaClient.pause();
     }
 
+    /**
+     * Seeks the current media file
+     * @param time the number of milliseconds to seek by
+     */
     public void seek(long time) {
         if (remoteMediaClient != null) remoteMediaClient.seek(time);
     }
 
+    /**
+     * Tries to play or pause the current media file, depending of the current state
+     */
     public void togglePlayPause() {
         if (remoteMediaClient != null) {
             if (remoteMediaClient.isPlaying()) {
@@ -39,43 +52,95 @@ public class CastyPlayer {
         }
     }
 
+    /**
+     * Checks if the media file is playing
+     * @return true if the media file is playing, false otherwise
+     */
     public boolean isPlaying() {
         return remoteMediaClient != null && remoteMediaClient.isPlaying();
     }
 
+    /**
+     * Checks if the media file is paused
+     * @return true if the media file is paused, false otherwise
+     */
     public boolean isPaused() {
         return remoteMediaClient != null && remoteMediaClient.isPaused();
     }
 
+    /**
+     * Checks if the media file is buffering
+     * @return true if the media file is buffering, false otherwise
+     */
     public boolean isBuffering() {
         return remoteMediaClient != null && remoteMediaClient.isBuffering();
     }
 
+    /**
+     * Tries to load the media file and play it in the {@link ExpandedControlsActivity}
+     * @see MediaData
+     * @param mediaData Information about the media
+     * @return true if attempt was successful, false otherwise
+     */
     @MainThread
     public boolean loadMediaAndPlay(@NonNull MediaData mediaData) {
         return loadMediaAndPlay(mediaData.createMediaInfo(), mediaData.autoPlay, mediaData.position);
     }
 
+    /**
+     * Tries to load the media file and play it in the {@link ExpandedControlsActivity}
+     * @see MediaInfo
+     * @param mediaInfo Information about the media
+     * @return true if attempt was successful, false otherwise
+     */
     @MainThread
     public boolean loadMediaAndPlay(@NonNull MediaInfo mediaInfo) {
         return loadMediaAndPlay(mediaInfo, true, 0);
     }
 
+    /**
+     * Tries to load the media file and play it in the {@link ExpandedControlsActivity}
+     * @see MediaInfo
+     * @param mediaInfo Information about the media
+     * @param autoPlay True if the media file should start automatically
+     * @param position Start position of video in milliseconds
+     * @return true if attempt was successful, false otherwise
+     */
     @MainThread
     public boolean loadMediaAndPlay(@NonNull MediaInfo mediaInfo, boolean autoPlay, long position) {
         return playMediaBaseMethod(mediaInfo, autoPlay, position, false);
     }
 
+    /**
+     * Tries to load the media file and play in background
+     * @see MediaData
+     * @param mediaData Information about the media
+     * @return true if attempt was successful, false otherwise
+     */
     @MainThread
     public boolean loadMediaAndPlayInBackground(@NonNull MediaData mediaData) {
         return loadMediaAndPlayInBackground(mediaData.createMediaInfo(), mediaData.autoPlay, mediaData.position);
     }
 
+    /**
+     * Tries to load the media file and play in background
+     * @see MediaInfo
+     * @param mediaInfo Information about the media
+     * @return true if attempt was successful, false otherwise
+     */
     @MainThread
     public boolean loadMediaAndPlayInBackground(@NonNull MediaInfo mediaInfo) {
         return loadMediaAndPlayInBackground(mediaInfo, true, 0);
     }
 
+    /**
+     * Tries to load the media file and play in background
+     * @see MediaInfo
+     * @param mediaInfo Information about the media
+     * @param autoPlay True if the media file should start automatically
+     * @param position Start position of video in milliseconds
+     * @return true if attempt was successful, false otherwise
+     */
     @MainThread
     public boolean loadMediaAndPlayInBackground(@NonNull MediaInfo mediaInfo, boolean autoPlay, long position) {
         return playMediaBaseMethod(mediaInfo, autoPlay, position, true);
