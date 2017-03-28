@@ -118,7 +118,7 @@ public class MediaData {
         /**
          * Sets the stream type. Required.
          * @param streamType One of {@link #STREAM_TYPE_NONE}, {@link #STREAM_TYPE_BUFFERED}, {@link #STREAM_TYPE_LIVE}
-         * @return Builder instance
+         * @return this instance for chain calls
          */
         public Builder setStreamType(@StreamType int streamType) {
             mediaData.setStreamType(streamType);
@@ -128,7 +128,7 @@ public class MediaData {
         /**
          * Sets the content type. Required.
          * @param contentType Valid content type, supported by Google Cast
-         * @return Builder instance
+         * @return this instance for chain calls
          */
         public Builder setContentType(String contentType) {
             mediaData.setContentType(contentType);
@@ -138,7 +138,7 @@ public class MediaData {
         /**
          * Sets stream duration.
          * @param streamDuration Valid stream duration
-         * @return Builder instance
+         * @return this instance for chain calls
          */
         public Builder setStreamDuration(long streamDuration) {
             mediaData.setStreamDuration(streamDuration);
@@ -148,7 +148,7 @@ public class MediaData {
         /**
          * Sets the title.
          * @param title any String
-         * @return Builder instance
+         * @return this instance for chain calls
          */
         public Builder setTitle(String title) {
             mediaData.setTitle(title);
@@ -158,7 +158,7 @@ public class MediaData {
         /**
          * Sets the subtitle.
          * @param subtitle any String
-         * @return Builder instance
+         * @return this instance for chain calls
          */
         public Builder setSubtitle(String subtitle) {
             mediaData.setSubtitle(subtitle);
@@ -169,7 +169,7 @@ public class MediaData {
          * Sets the media type.
          * @param mediaType One of {@link #MEDIA_TYPE_GENERIC}, {@link #MEDIA_TYPE_MOVIE}, {@link #MEDIA_TYPE_TV_SHOW}, {@link #MEDIA_TYPE_MUSIC_TRACK},
          * {@link #MEDIA_TYPE_PHOTO}, {@link #MEDIA_TYPE_USER}
-         * @return Builder instance
+         * @return this instance for chain calls
          */
         public Builder setMediaType(@MediaType int mediaType) {
             mediaData.setMediaType(mediaType);
@@ -179,7 +179,7 @@ public class MediaData {
         /**
          * Adds the photo url
          * @param photoUrl valid url to image
-         * @return Builder instance
+         * @return this instance for chain calls
          */
         public Builder addPhotoUrl(String photoUrl) {
             mediaData.imageUrls.add(photoUrl);
@@ -189,7 +189,7 @@ public class MediaData {
         /**
          * Sets up playing on start
          * @param autoPlay True if the media file should start automatically
-         * @return Builder instance
+         * @return this instance for chain calls
          */
         public Builder setAutoPlay(boolean autoPlay) {
             mediaData.autoPlay = autoPlay;
@@ -199,7 +199,7 @@ public class MediaData {
         /**
          * Sets the start position
          * @param position Start position of video in milliseconds
-         * @return Builder instance
+         * @return this instance for chain calls
          */
         public Builder setPosition(long position) {
             mediaData.position = position;

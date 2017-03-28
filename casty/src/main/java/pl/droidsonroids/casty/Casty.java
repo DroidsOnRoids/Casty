@@ -52,7 +52,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
 
     /**
      * Creates the Casty object.
-     * @param activity Activity in which Casty object is created
+     * @param activity {@link Activity} in which Casty object is created
      * @return the Casty object
      */
     public static Casty create(@NonNull Activity activity) {
@@ -76,7 +76,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
     }
 
     /**
-     * Checks if a Google Cast device is connected
+     * Checks if a Google Cast device is connected.
      * @return true if a Google Cast is connected, false otherwise
      */
     public boolean isConnected() {
@@ -96,6 +96,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
 
     /**
      * Makes {@link MediaRouteButton} react to discovery events.
+     * Must be run on UiThread.
      * @param mediaRouteButton Button to be set up
      */
     @UiThread
@@ -105,6 +106,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
 
     /**
      * Adds the Mini Controller at the bottom of Activity's layout.
+     * Must be run on UiThread.
      * @return the Casty instance
      */
     @UiThread
@@ -115,6 +117,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
 
     /**
      * Adds the Mini Controller at the bottom of Activity's layout
+     * Must be run on UiThread.
      */
     @UiThread
     public void addMiniController() {
