@@ -4,11 +4,11 @@ Casty is a small Android library that provides a simple media player for Chromec
 Insert the following dependency to `build.gradle` file of your project:
 ```gradle
 dependencies {
-    compile 'pl.droidsonroids:casty:1.0.4'
+    compile 'pl.droidsonroids:casty:1.0.5'
 }
 ```
 ## Usage
-Casty requires Google Play Services and I assume that the target device has it installed (if not this example will crash). In a bigger project I suggest you check it using [GoogleApiAvailability][Google_availability].
+Casty requires Google Play Services and I assume that the target device has it installed (if not this example won't work). In a bigger project I suggest you check it using [GoogleApiAvailability][Google_availability].
 
 First, you need to initialize a Casty instance in every Activity you want to use it in:
 ```java

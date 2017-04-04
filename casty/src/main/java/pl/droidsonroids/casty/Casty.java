@@ -8,6 +8,7 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.annotation.UiThread;
 import android.support.v7.app.MediaRouteButton;
+import android.util.Log;
 import android.view.Menu;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,11 +19,14 @@ import com.google.android.gms.cast.framework.CastContext;
 import com.google.android.gms.cast.framework.CastOptions;
 import com.google.android.gms.cast.framework.CastSession;
 import com.google.android.gms.cast.framework.SessionManagerListener;
+import com.google.android.gms.common.ConnectionResult;
+import com.google.android.gms.common.GoogleApiAvailability;
 
 /**
  * Core class of Casty. It manages buttons/widgets and gives access to the media player.
  */
 public class Casty implements CastyPlayer.OnMediaLoadedListener {
+    static String TAG = "Casty";
     static String receiverId = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
     static CastOptions customCastOptions;
 
@@ -36,6 +40,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
 
     /**
      * Sets the custom receiver ID. Should be used in the {@link Application} class.
+     *
      * @param receiverId the custom receiver ID, e.g. Styled Media Receiver - with custom logo and background
      */
     public static void configure(@NonNull String receiverId) {
@@ -44,6 +49,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
 
     /**
      * Sets the custom CastOptions, should be used in the {@link Application} class.
+     *
      * @param castOptions the custom CastOptions object, must include a receiver ID
      */
     public static void configure(@NonNull CastOptions castOptions) {
@@ -52,11 +58,23 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
 
     /**
      * Creates the Casty object.
+     *
      * @param activity {@link Activity} in which Casty object is created
      * @return the Casty object
      */
     public static Casty create(@NonNull Activity activity) {
-        return new Casty(activity);
+        int playServicesState = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(activity);
+        if (playServicesState == ConnectionResult.SUCCESS) {
+            return new Casty(activity);
+        } else {
+            Log.w(Casty.TAG, "Google Play services not found on a device, Casty won't work.");
+            return new CastyNoOp();
+        }
+    }
+
+    //Needed for NoOp instance
+    Casty() {
+        //no-op
     }
 
     private Casty(@NonNull Activity activity) {
@@ -69,6 +87,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
 
     /**
      * Gives access to {@link CastyPlayer}, which allows to control the media files.
+     *
      * @return the instance of {@link CastyPlayer}
      */
     public CastyPlayer getPlayer() {
@@ -77,6 +96,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
 
     /**
      * Checks if a Google Cast device is connected.
+     *
      * @return true if a Google Cast is connected, false otherwise
      */
     public boolean isConnected() {
@@ -86,6 +106,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
     /**
      * Adds the discovery menu item on a toolbar.
      * Should be used in {@link Activity#onCreateOptionsMenu(Menu)}.
+     *
      * @param menu Menu in which MenuItem should be added
      */
     @UiThread
@@ -97,6 +118,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
     /**
      * Makes {@link MediaRouteButton} react to discovery events.
      * Must be run on UiThread.
+     *
      * @param mediaRouteButton Button to be set up
      */
     @UiThread
@@ -107,6 +129,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
     /**
      * Adds the Mini Controller at the bottom of Activity's layout.
      * Must be run on UiThread.
+     *
      * @return the Casty instance
      */
     @UiThread
@@ -143,6 +166,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
 
     /**
      * Sets {@link OnConnectChangeListener}
+     *
      * @param onConnectChangeListener Connect change callback
      */
     public void setOnConnectChangeListener(@Nullable OnConnectChangeListener onConnectChangeListener) {
@@ -151,6 +175,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
 
     /**
      * Sets {@link OnCastSessionUpdatedListener}
+     *
      * @param onCastSessionUpdatedListener Cast session updated callback
      */
     public void setOnCastSessionUpdatedListener(@Nullable OnCastSessionUpdatedListener onCastSessionUpdatedListener) {
@@ -263,7 +288,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
 
             @Override
             public void onActivityDestroyed(Activity activity) {
-                if(Casty.this.activity == activity) {
+                if (Casty.this.activity == activity) {
                     activity.getApplication().unregisterActivityLifecycleCallbacks(this);
                 }
             }

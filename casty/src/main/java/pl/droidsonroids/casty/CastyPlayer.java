@@ -9,6 +9,11 @@ public class CastyPlayer {
     private RemoteMediaClient remoteMediaClient;
     private OnMediaLoadedListener onMediaLoadedListener;
 
+    //Needed for NoOp instance
+    CastyPlayer() {
+        //no-op
+    }
+
     CastyPlayer(OnMediaLoadedListener onMediaLoadedListener) {
         this.onMediaLoadedListener = onMediaLoadedListener;
     }
@@ -33,6 +38,7 @@ public class CastyPlayer {
 
     /**
      * Seeks the current media file
+     *
      * @param time the number of milliseconds to seek by
      */
     public void seek(long time) {
@@ -54,6 +60,7 @@ public class CastyPlayer {
 
     /**
      * Checks if the media file is playing
+     *
      * @return true if the media file is playing, false otherwise
      */
     public boolean isPlaying() {
@@ -62,6 +69,7 @@ public class CastyPlayer {
 
     /**
      * Checks if the media file is paused
+     *
      * @return true if the media file is paused, false otherwise
      */
     public boolean isPaused() {
@@ -70,6 +78,7 @@ public class CastyPlayer {
 
     /**
      * Checks if the media file is buffering
+     *
      * @return true if the media file is buffering, false otherwise
      */
     public boolean isBuffering() {
@@ -78,9 +87,10 @@ public class CastyPlayer {
 
     /**
      * Tries to load the media file and play it in the {@link ExpandedControlsActivity}
-     * @see MediaData
+     *
      * @param mediaData Information about the media
      * @return true if attempt was successful, false otherwise
+     * @see MediaData
      */
     @MainThread
     public boolean loadMediaAndPlay(@NonNull MediaData mediaData) {
@@ -89,9 +99,10 @@ public class CastyPlayer {
 
     /**
      * Tries to load the media file and play it in the {@link ExpandedControlsActivity}
-     * @see MediaInfo
+     *
      * @param mediaInfo Information about the media
      * @return true if attempt was successful, false otherwise
+     * @see MediaInfo
      */
     @MainThread
     public boolean loadMediaAndPlay(@NonNull MediaInfo mediaInfo) {
@@ -100,11 +111,12 @@ public class CastyPlayer {
 
     /**
      * Tries to load the media file and play it in the {@link ExpandedControlsActivity}
-     * @see MediaInfo
+     *
      * @param mediaInfo Information about the media
      * @param autoPlay True if the media file should start automatically
      * @param position Start position of video in milliseconds
      * @return true if attempt was successful, false otherwise
+     * @see MediaInfo
      */
     @MainThread
     public boolean loadMediaAndPlay(@NonNull MediaInfo mediaInfo, boolean autoPlay, long position) {
@@ -113,9 +125,10 @@ public class CastyPlayer {
 
     /**
      * Tries to load the media file and play in background
-     * @see MediaData
+     *
      * @param mediaData Information about the media
      * @return true if attempt was successful, false otherwise
+     * @see MediaData
      */
     @MainThread
     public boolean loadMediaAndPlayInBackground(@NonNull MediaData mediaData) {
@@ -124,9 +137,10 @@ public class CastyPlayer {
 
     /**
      * Tries to load the media file and play in background
-     * @see MediaInfo
+     *
      * @param mediaInfo Information about the media
      * @return true if attempt was successful, false otherwise
+     * @see MediaInfo
      */
     @MainThread
     public boolean loadMediaAndPlayInBackground(@NonNull MediaInfo mediaInfo) {
@@ -135,11 +149,12 @@ public class CastyPlayer {
 
     /**
      * Tries to load the media file and play in background
-     * @see MediaInfo
+     *
      * @param mediaInfo Information about the media
      * @param autoPlay True if the media file should start automatically
      * @param position Start position of video in milliseconds
      * @return true if attempt was successful, false otherwise
+     * @see MediaInfo
      */
     @MainThread
     public boolean loadMediaAndPlayInBackground(@NonNull MediaInfo mediaInfo, boolean autoPlay, long position) {
