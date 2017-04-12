@@ -4,7 +4,7 @@ Casty is a small Android library that provides a simple media player for Chromec
 Insert the following dependency to `build.gradle` file of your project:
 ```gradle
 dependencies {
-    compile 'pl.droidsonroids:casty:1.0.5'
+    compile 'pl.droidsonroids:casty:1.0.6'
 }
 ```
 ## Usage
@@ -39,6 +39,8 @@ public boolean onCreateOptionsMenu(Menu menu) {
     return true;
 }
 ```
+Automatically, [Introduction Overlay][Introduction_Overlay] (with text "You can use this button to connect with Chromecast") will be shown at the first device discovery. If you want to change it or add another language override string with id `casty_introduction_text` in a XML resource.
+
 You can also add a discovery button anywhere else by placing it in your layout XML:
 ```xml
 <android.support.v7.app.MediaRouteButton
@@ -125,4 +127,5 @@ casty.setOnCastSessionUpdatedListener(new Casty.OnCastSessionUpdatedListener() {
    [Mini_Controller_Implementation]: <https://developers.google.com/cast/docs/android_sender_integrate#add_mini_controller>
    [Cast_load_media]: <https://developers.google.com/cast/docs/android_sender_integrate#load_media>
    [Google_availability]: <https://developers.google.com/android/reference/com/google/android/gms/common/GoogleApiAvailability>
+   [Introduction_Overlay]: <https://developers.google.com/cast/docs/design_checklist/cast-button#prompting>
    [License]: <https://github.com/DroidsOnRoids/Casty/blob/master/LICENSE>

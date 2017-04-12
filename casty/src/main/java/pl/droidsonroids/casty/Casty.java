@@ -10,6 +10,7 @@ import android.support.annotation.UiThread;
 import android.support.v7.app.MediaRouteButton;
 import android.util.Log;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
@@ -18,6 +19,9 @@ import com.google.android.gms.cast.framework.CastButtonFactory;
 import com.google.android.gms.cast.framework.CastContext;
 import com.google.android.gms.cast.framework.CastOptions;
 import com.google.android.gms.cast.framework.CastSession;
+import com.google.android.gms.cast.framework.CastState;
+import com.google.android.gms.cast.framework.CastStateListener;
+import com.google.android.gms.cast.framework.IntroductoryOverlay;
 import com.google.android.gms.cast.framework.SessionManagerListener;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -26,7 +30,7 @@ import com.google.android.gms.common.GoogleApiAvailability;
  * Core class of Casty. It manages buttons/widgets and gives access to the media player.
  */
 public class Casty implements CastyPlayer.OnMediaLoadedListener {
-    static String TAG = "Casty";
+    private final static String TAG = "Casty";
     static String receiverId = CastMediaControlIntent.DEFAULT_MEDIA_RECEIVER_APPLICATION_ID;
     static CastOptions customCastOptions;
 
@@ -37,6 +41,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
     private CastSession castSession;
     private CastyPlayer castyPlayer;
     private Activity activity;
+    private IntroductoryOverlay introductionOverlay;
 
     /**
      * Sets the custom receiver ID. Should be used in the {@link Application} class.
@@ -82,7 +87,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
         sessionManagerListener = createSessionManagerListener();
         castyPlayer = new CastyPlayer(this);
         activity.getApplication().registerActivityLifecycleCallbacks(createActivityCallbacks());
-        CastContext.getSharedInstance(activity);
+        CastContext.getSharedInstance(activity).addCastStateListener(createCastStateListener());
     }
 
     /**
@@ -104,7 +109,7 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
     }
 
     /**
-     * Adds the discovery menu item on a toolbar.
+     * Adds the discovery menu item on a toolbar and creates Introduction Overlay
      * Should be used in {@link Activity#onCreateOptionsMenu(Menu)}.
      *
      * @param menu Menu in which MenuItem should be added
@@ -113,6 +118,8 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
     public void addMediaRouteMenuItem(@NonNull Menu menu) {
         activity.getMenuInflater().inflate(R.menu.casty_discovery, menu);
         setUpMediaRouteMenuItem(menu);
+        MenuItem menuItem = menu.findItem(R.id.casty_media_route_menu_item);
+        introductionOverlay = createIntroductionOverlay(menuItem);
     }
 
     /**
@@ -184,6 +191,22 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
 
     private void setUpMediaRouteMenuItem(Menu menu) {
         CastButtonFactory.setUpMediaRouteButton(activity, menu, R.id.casty_media_route_menu_item);
+    }
+
+    @NonNull
+    private CastStateListener createCastStateListener() {
+        return new CastStateListener() {
+            @Override
+            public void onCastStateChanged(int state) {
+                if (state != CastState.NO_DEVICES_AVAILABLE && introductionOverlay != null) {
+                    showIntroductionOverlay();
+                }
+            }
+        };
+    }
+
+    private void showIntroductionOverlay() {
+        introductionOverlay.show();
     }
 
     private SessionManagerListener<CastSession> createSessionManagerListener() {
@@ -293,6 +316,13 @@ public class Casty implements CastyPlayer.OnMediaLoadedListener {
                 }
             }
         };
+    }
+
+    private IntroductoryOverlay createIntroductionOverlay(MenuItem menuItem) {
+        return new IntroductoryOverlay.Builder(activity, menuItem)
+                .setTitleText(R.string.casty_introduction_text)
+                .setSingleTime()
+                .build();
     }
 
     private void registerSessionManagerListener() {
