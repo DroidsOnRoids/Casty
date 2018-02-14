@@ -39,7 +39,7 @@ public boolean onCreateOptionsMenu(Menu menu) {
     return true;
 }
 ```
-Automatically, [Introduction Overlay][Introduction_Overlay] (with text "You can use this button to connect with Chromecast") will be shown at the first device discovery. If you want to change it or add another language override string with id `casty_introduction_text` in a XML resource.
+Automatically, [Introduction Overlay][Introduction_Overlay] (with text "Use this button to connect with Chromecast") will be shown at the first device discovery. If you want to change it or add another language override string with id `casty_introduction_text` in a XML resource.
 
 You can also add a discovery button anywhere else by placing it in your layout XML:
 ```xml
