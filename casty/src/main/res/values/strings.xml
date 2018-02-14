@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">Casty</string>
-    <string name="casty_introduction_text">You can use this button to connect with Chromecast</string>
+    <string name="casty_introduction_text">Use this button to connect with Chromecast</string>
 </resources>

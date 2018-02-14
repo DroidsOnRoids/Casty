@@ -4,8 +4,8 @@ apply plugin: 'com.github.dcendents.android-maven'
 group = 'com.github.DroidsOnRoids'
 
 ext {
-    supportVersion = '25.3.1'
-    castVersion = '10.2.4'
+    supportVersion = '27.0.2'
+    castVersion = '11.8.0'
     queryVersion = '0.25.9'
 
     PUBLISH_GROUP_ID = 'pl.droidsonroids'
@@ -14,12 +14,12 @@ ext {
 }
 
 android {
-    compileSdkVersion 25
-    buildToolsVersion "25.0.2"
+    compileSdkVersion 27
+    buildToolsVersion "27.0.3"
 
     defaultConfig {
         minSdkVersion 14
-        targetSdkVersion 25
+        targetSdkVersion 27
         versionCode 7
         versionName PUBLISH_VERSION
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
@@ -33,9 +33,10 @@ android {
 }
 
 dependencies {
-    compile "com.android.support:appcompat-v7:${supportVersion}"
-    compile "com.android.support:mediarouter-v7:${supportVersion}"
-    compile "com.google.android.gms:play-services-cast-framework:${castVersion}"
+    api "com.android.support:appcompat-v7:$supportVersion"
+    api "com.android.support:support-v4:$supportVersion"
+    api "com.android.support:mediarouter-v7:$supportVersion"
+    api "com.google.android.gms:play-services-cast-framework:$castVersion"
 }
 
 apply from: 'https://raw.githubusercontent.com/blundell/release-android-library/master/android-release-aar.gradle'
