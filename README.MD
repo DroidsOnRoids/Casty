@@ -4,7 +4,7 @@ Casty is a small Android library that provides a simple media player for Chromec
 Insert the following dependency to `build.gradle` file of your project:
 ```gradle
 dependencies {
-    compile 'pl.droidsonroids:casty:1.0.7'
+    compile 'pl.droidsonroids:casty:1.0.8'
 }
 ```
 ## Usage
