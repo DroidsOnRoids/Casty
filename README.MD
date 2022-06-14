@@ -1,3 +1,8 @@
+# Project no longer maintained
+
+This project is no longer maintained.
+If you have any questions contact opensource@droidsonroids.pl
+
 # Casty
 Casty is a small Android library that provides a simple media player for Chromecast. It's fully consistent with [Google Cast v3][Cast_v3].
 ## Installation
